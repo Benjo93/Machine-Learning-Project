@@ -1,5 +1,94 @@
-<Button>:
-    text: 'Press me'
-    size_hint: (.5, .5)
-    pos_hint: {'center_x': .5, 'center_y': .5}
-    on_press: app.on_press_button()
+<MainLayout>:
+    BoxLayout:
+        orientation:"vertical"
+        size_hint:1, 1
+
+        BoxLayout:
+            orientation:"horizontal"
+            padding: 10
+            size_hint:1, None
+            height:"60dp"
+            text:"Top Bar"
+            background_color: (40/255, 170/255, 225/255, 1)
+            canvas.before:
+                Color:
+                    rgba: self.background_color
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+
+            BoxLayout:
+                orientation:"vertical"
+
+            Button:
+                background_color: 0, 0, 0, 0
+                size_hint: None, None
+                width: "40dp"
+                height: "40dp"
+
+                on_press: app.on_press_button("Menu")
+
+                Image:
+                    source: 'menu_icon.png'
+                    center_x: self.parent.center_x
+                    center_y: self.parent.center_y
+                    keep_ratio: True
+                    size_hint: None, None
+                    width: "40dp"
+                    height: "40dp"
+
+        # Text-to-speech Module.
+        BoxLayout:
+            orientation:"horizontal"
+            padding: 10
+
+            BoxLayout:
+                orientation:"vertical"
+                padding: 10
+                background_color: (1, 1, 1, 1)
+                canvas.before:
+                    Color:
+                        rgba: self.background_color
+                    RoundedRectangle:
+                        size: self.size
+                        pos: self.pos
+                        radius: [20]
+
+                Label:
+                    text: "Integrate Text-to-speech here "
+                    font_size: 24
+                    color: 0, 0, 0, 1
+
+                Button:
+                    background_color: 0, 0, 0, 0
+                    size_hint: None, None
+                    width: "40dp"
+                    height: "40dp"
+                    pos_hint: { "right": 1 }
+
+                    on_press: app.on_press_button("Speak")
+
+                    Image:
+                        source: 'sound_icon.png'
+                        center_x: self.parent.center_x
+                        center_y: self.parent.center_y
+                        keep_ratio: True
+                        size_hint: None, None
+                        width: "40dp"
+                        height: "40dp"
+                        color: 30/255, 200/255, 1, 1
+
+        # Camera Module.
+        BoxLayout:
+            orientation:"horizontal"
+            background_color: (0, 0, 0, 1)
+            canvas.before:
+                Color:
+                    rgba: self.background_color
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+
+            Label:
+                text: "Integrate Camera Here."
+                font_size: 24
