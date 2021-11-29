@@ -9,6 +9,8 @@ from kivy.uix.image import Image
 from kivy.clock import Clock
 from kivy.graphics.texture import Texture
 
+from gtts import gTTS
+
 #Camera Functionality
 from google.cloud import vision
 from google.cloud.vision_v1 import types
@@ -17,6 +19,7 @@ import io
 import cv2
 credential_path = "nodal-isotope-333317-71fcbccc05ee.json"
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = credential_path
+
 
 class MainLayout(BoxLayout):
     pass
@@ -40,6 +43,7 @@ class MLProjectApp(App):
 
         if function == "Speak":
             print('Text-to-speech function')
+            self.text_to_speech()
 
         if function == "Read":
             print('Camera text extraction function')
@@ -80,9 +84,23 @@ def detect_text(path):
     texts = response.text_annotations
     string = ''
 
+<<<<<<< Updated upstream
     for text in texts:
         string+=' ' + text.description
     return string
+=======
+        for text in texts:
+            string += ' ' + text.description
+        print(string)
+        return string
+>>>>>>> Stashed changes
+
+    def text_to_speech(self):
+        text_to_read = self.detectedText
+        text_result = gTTS(text=text_to_read, lang='en', slow=False)
+        text_result.save("text_result.mp3")
+        os.system("start text_result.mp3")
+
 
 if __name__ == '__main__':
     CamApp().run()
