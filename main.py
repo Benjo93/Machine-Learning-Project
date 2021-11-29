@@ -1,4 +1,4 @@
-# This will require kivy, opencv, google.studios.vision
+# This will require kivy, opencv, google.studios.vision, gtts
 #
 #
 from __future__ import print_function
