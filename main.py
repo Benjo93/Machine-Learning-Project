@@ -97,8 +97,9 @@ class MLProjectApp(App):
         text_result.save("text_result.mp3")
         os.system("start text_result.mp3")
 
-
 if __name__ == '__main__':
     MLProjectApp().run()
     os.remove("images/live.png")
+
     cv2.destroyAllWindows()
+
