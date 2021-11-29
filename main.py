@@ -15,7 +15,6 @@ from google.cloud.vision_v1 import types
 import os
 import io
 import cv2
-from PIL import Image as pilImage
 
 credential_path = "nodal-isotope-333317-71fcbccc05ee.json"
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = credential_path
@@ -53,7 +52,7 @@ class MLProjectApp(App):
         if function == "Read":
             print('Camera text extraction function')
             self.detectedText = self.detect_text('images/live.png')
-            self.root.ids.textLabel.text = detectedText
+            self.root.ids.textLabel.text = self.detectedText
 
     def update(self, dt):
         ret, frame = self.capture.read()
@@ -86,4 +85,5 @@ class MLProjectApp(App):
 
 if __name__ == '__main__':
     MLProjectApp().run()
+    os.remove("images/live.png")
     cv2.destroyAllWindows()
