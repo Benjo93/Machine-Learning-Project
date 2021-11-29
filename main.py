@@ -1,3 +1,6 @@
+# This will require kivy, opencv, google.studios.vision
+#
+#
 from __future__ import print_function
 
 from kivy.app import App
