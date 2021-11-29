@@ -15,6 +15,8 @@ from google.cloud.vision_v1 import types
 import os
 import io
 import cv2
+from PIL import Image as pilImage
+
 credential_path = "nodal-isotope-333317-71fcbccc05ee.json"
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = credential_path
 
@@ -31,6 +33,13 @@ class MLProjectApp(App):
         # Change window size.
         Window.size = (450, 800)
 
+        #Google Vision
+        self.client = vision.ImageAnnotatorClient()
+        self.detectedText = ''
+        #opencv2
+        self.capture = cv2.VideoCapture(0)
+        Clock.schedule_interval(self.update, 1.0/33.0)
+
         return MainLayout()
 
     def on_press_button(self, function):
@@ -43,47 +52,38 @@ class MLProjectApp(App):
 
         if function == "Read":
             print('Camera text extraction function')
-
-class CamApp(App):
-
-    def build(self):
-        self.img1=Image()
-        layout = BoxLayout()
-        layout.add_widget(self.img1)
-        #opencv2 stuffs
-        self.capture = cv2.VideoCapture(0)
-        cv2.namedWindow("CV2 Image")
-        Clock.schedule_interval(self.update, 1.0/33.0)
-        return layout
+            self.detectedText = self.detect_text('images/live.png')
+            self.root.ids.textLabel.text = detectedText
 
     def update(self, dt):
-        # display image from cam in opencv window
         ret, frame = self.capture.read()
-        cv2.imshow("CV2 Image", frame)
+
+        file = 'images/live.png'
+        cv2.imwrite( file,frame)
+        
         # convert it to texture
         buf1 = cv2.flip(frame, 0)
         buf = buf1.tostring()
         texture1 = Texture.create(size=(frame.shape[1], frame.shape[0]), colorfmt='bgr') 
-        #if working on RASPBERRY PI, use colorfmt='rgba' here instead, but stick with "bgr" in blit_buffer. 
         texture1.blit_buffer(buf, colorfmt='bgr', bufferfmt='ubyte')
         # display image from the texture
-        self.img1.texture = texture1
+        self.root.ids.img1.texture = texture1
 
-client = vision.ImageAnnotatorClient()
-def detect_text(path):
-    """Detects text in the file."""
-    with io.open(path, 'rb') as image_file:
-        content = image_file.read()
+    def detect_text(self, path):
+        #Detects text in the file.
+        with io.open(path, 'rb') as image_file:
+            content = image_file.read()
 
-    image = types.Image(content=content)
-    response = client.text_detection(image=image)
-    texts = response.text_annotations
-    string = ''
+        image = types.Image(content=content)
+        response = self.client.text_detection(image=image)
+        texts = response.text_annotations
+        string = ''
 
-    for text in texts:
-        string+=' ' + text.description
-    return string
+        for text in texts:
+            string+=' ' + text.description
+        print(string)
+        return string
 
 if __name__ == '__main__':
-    CamApp().run()
+    MLProjectApp().run()
     cv2.destroyAllWindows()

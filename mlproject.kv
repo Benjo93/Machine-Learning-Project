@@ -55,9 +55,20 @@
                         radius: [20]
 
                 Label:
+                    id: textLabel
                     text: "Text-to-speech"
                     font_size: 24
                     color: 0, 0, 0, 1
+
+                Button:
+                    text: "Detect Text"
+                    background_color: 100, 100, 100, 100
+                    size_hint: None, None
+                    width: "40dp"
+                    height: "40dp"
+                    pos_hint: { "center": 0 }
+
+                    on_press: app.on_press_button("Read")
 
                 Button:
                     background_color: 0, 0, 0, 0
@@ -89,6 +100,5 @@
                     size: self.size
                     pos: self.pos
 
-            Label:
-                text: "Camera"
-                font_size: 24
+            Image:
+                id: img1
