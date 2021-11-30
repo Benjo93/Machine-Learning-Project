@@ -44,7 +44,7 @@
 
             BoxLayout:
                 orientation:"vertical"
-                padding: 10
+                padding: 24
                 background_color: (1, 1, 1, 1)
                 canvas.before:
                     Color:
@@ -57,19 +57,12 @@
                 Label:
                     id: textLabel
                     text: "Text-to-speech"
-                    font_size: 24
-                    color: 0, 0, 0, 1
-
-                Button:
-                    text: "Detect Text"
                     font_size: 16
-                    text_color: 0,0,0,1
-                    background_color: 100, 100, 100, 100
-                    width: "40dp"
-                    height: "40dp"
-                    pos_hint: { "center": 0 }
-
-                    on_press: app.on_press_button("Read")
+                    color: 0, 0, 0, 1
+                    text_size: self.width, None
+                    size_hint: 1, None
+                    height: self.texture_size[1]
+                    pos_hint: { "x" : 0, "y" : 0.25 }
 
                 Button:
                     background_color: 0, 0, 0, 0
@@ -101,5 +94,31 @@
                     size: self.size
                     pos: self.pos
 
-            Image:
-                id: img1
+
+            FloatLayout:
+                size: root.width, root.height
+
+                Image:
+                    id: img1
+
+                Button:
+                    text: "+"
+                    background_color: 1, 1, 1, 0
+                    text_color: 1,1,1,1
+                    size_hint: None, None
+                    width: "40dp"
+                    height: "40dp"
+                    pos_hint: { "x" : 0.45, "y" : 0.1 }
+
+                    on_press: app.on_press_button("Read")
+
+                    Image:
+                        source: 'images/camera_click.png'
+                        center_x: self.parent.center_x
+                        center_y: self.parent.center_y
+                        keep_ratio: True
+                        size_hint: None, None
+                        width: "60dp"
+                        height: "60dp"
+                        color: 1, 1, 1, 1
+
