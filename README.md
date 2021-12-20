@@ -12,12 +12,12 @@ mlproject.kv – layout file that defines the structure of the app and communica
 
 ![image](https://user-images.githubusercontent.com/13397606/146822399-9281866c-85d2-45e3-9296-fd40be66dd25.png)
 
-#@ Part 2 (Extract text from image):
+## Part 2 (Extract text from image):
 Text extraction was implemented using google vision libraries and opencv in Python. This works in two independent functions. First, opencv will open a connection with the webcam atached to the computer, or the 1st camera attached to the device, and then save the image as a file. The opencv image is then converted into a kivy texture and applied to the camera widget at the bottom of the app screen. A button is then pressed to allow google vision to analyze the last live photo for text and display it in the label above.
  
 ![ML App Pic](https://user-images.githubusercontent.com/13397606/146821767-8d221e0e-0dad-4ef0-8eeb-6b16d96847d3.png)
 
-#@ Part 3 (Turn text to speech):
+## Part 3 (Turn text to speech):
 Text-to-speech was implemented using the gTTS python library. This library contains functions to convert an input text into an audio file that can then be saved to the user’s device. 
  
 ![image](https://user-images.githubusercontent.com/13397606/146822542-4492fe45-db8a-4a1f-8a90-9aa7fbd18e66.png)
